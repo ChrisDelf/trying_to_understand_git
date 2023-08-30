@@ -12,8 +12,8 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route exact path="/" element=<LoginPage /> />
-        <Route exact path="/homepage" element=<HomePage /> />
+        <Route exact path="/" element={<LoginPage />} />
+        <Route exact path="/homepage" element={<HomePage />} />
       </Routes>
     </BrowserRouter>
   );
