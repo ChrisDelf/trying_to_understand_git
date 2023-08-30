@@ -11,7 +11,6 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
 
   const userInfo = useSelector((state) => state.user);
-    console.log("LoginPage", userInfo)
   const onNameChange = (e) => setName(e.target.value);
   const onPasswordChange = (e) => setPassword(e.target.value);
 
