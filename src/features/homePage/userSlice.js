@@ -1,7 +1,7 @@
 import { createSlice, nanoid, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const SERVER_URL = "https://jsonplaceholder.typicode.com/todo/1";
+const SERVER_URL = "http://localhost:3500/song/";
 
 const initialState = {
   name: "smelly",
@@ -41,10 +41,9 @@ const userSlice = createSlice({
       })
       .addCase(fetchSongs.fulfilled, (state, action) => {
         state.status = "succeeded";
-        const loadedSongs = action.payload((song) => {
-          console.log("Fetching Songs");
-        });
-        // added all fetched songs to the array
+        const loadedSongs = action.payload 
+          console.log(loadedSongs)
+          // added all fetched songs to the array
         state.songs = state.songs.concat(loadedSongs);
       })
       .addCase(fetchSongs.rejected, (state, action) => {
