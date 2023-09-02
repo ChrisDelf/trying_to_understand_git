@@ -1,12 +1,22 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, nanoid, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+
+const SERVER_URL = "http://localhost:3500/song/";
 
 const initialState = {
+  name: "smelly",
+  email: "",
+  error: null,
+  status: "idle", //'idle' | 'loading' | 'succeeded' | 'failed'
+  songs: [],
+  isLoggedIn: false,
+};
 
-    name: "smelly",
-    email: "",
-    isLoggedIn: false,
-
-}
+export const fetchSongs = createAsyncThunk("songs", async () => {
+    const response = await axios.get(SERVER_URL);
+    console.log(response)
+    return response.data;
+});
 
 const userSlice = createSlice({
   name: "user",
@@ -24,7 +34,26 @@ const userSlice = createSlice({
       state.isLoggedIn = false;
     },
   },
+  extraReducers(builder) {
+    builder
+      .addCase(fetchSongs.pending, (state, action) => {
+        state.status = "loading";
+      })
+      .addCase(fetchSongs.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        const loadedSongs = action.payload 
+          console.log(loadedSongs)
+          // added all fetched songs to the array
+        state.songs = state.songs.concat(loadedSongs);
+      })
+      .addCase(fetchSongs.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      });
+  },
 });
+
+export const selectUser = (state) => state.user.status;
 
 export const { setUser, logOutUser } = userSlice.actions;
 
