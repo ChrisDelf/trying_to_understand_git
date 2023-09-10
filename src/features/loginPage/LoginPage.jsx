@@ -1,8 +1,10 @@
-import React from 'react';
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import mainTheme from "../../app/themes";
 import { setUser } from "../homePage/userSlice";
+import { ThemeProvider } from '@mui/material/styles';
+import Button from '@mui/material/Button';
+import { lime, purple } from '@mui/material/colors';
 
 const LoginPage = () => {
   const dispatch = useDispatch();
@@ -17,34 +19,36 @@ const LoginPage = () => {
   const onLoginClicked = () => {
     if (name && password) {
       // disptach goes here
-        dispatch(setUser({name, email:"example@email.com"}))
-        setName("")
-        setPassword("")
+      dispatch(setUser({ name, email: "example@email.com" }));
+      setName("");
+      setPassword("");
     }
   };
+
+    console.log(mainTheme.palette.primary)
 
   const canLogin = Boolean(name) && Boolean(password);
 
   return (
-    <section>
-      <h2>Login</h2>
-      <label htmlFor="userName">User Name:</label>
-      <input type="text" id="userName" value={name} onChange={onNameChange} />
+    <ThemeProvider theme={mainTheme}>
+      <section>
+        <h2>Login</h2>
+        <label htmlFor="userName">User Name:</label>
+        <input type="text" id="userName" value={name} onChange={onNameChange} />
 
-      <label htmlFor="password">Password:</label>
-      <input
-        type="password"
-        id="password"
-        value={password}
-        onChange={onPasswordChange}
-      />
-      <button type="button" onClick={onLoginClicked} disabled={!canLogin}>
-        Login
-      </button>
-    </section>
+        <label htmlFor="password">Password:</label>
+        <input
+          type="password"
+          id="password"
+          value={password}
+          onChange={onPasswordChange}
+        />
+        <Button variant="contained" color="primary" onClick={onLoginClicked} disabled={!canLogin}>
+          Login
+        </Button>
+      </section>
+    </ThemeProvider>
   );
 };
 
-
-
-export default LoginPage
+export default LoginPage;
