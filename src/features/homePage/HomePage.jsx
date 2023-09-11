@@ -4,6 +4,7 @@ import { fetchSongs, selectUser } from "./userSlice";
 import MusicList from "./MusicList";
 import { ThemeProvider } from "@mui/material";
 import mainTheme from "../../app/themes";
+import AudioPlayer from "./AudioPlayer";
 
 const HomePage = () => {
     const dispatch = useDispatch();
@@ -31,6 +32,7 @@ const HomePage = () => {
             <h2>Recent Music</h2>
             <MusicList />
         </section>
+        <AudioPlayer />
         </ThemeProvider>
     );
 };
