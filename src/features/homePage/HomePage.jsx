@@ -30,7 +30,7 @@ const HomePage = () => {
             <h2>Hello</h2>
             {userInfo && userInfo.name ? userInfo.name : "User's name not available"}
             <h2>Recent Music</h2>
-            <MusicList />
+            <MusicList songs={userInfo.songs}/>
         </section>
         <AudioPlayer />
         </ThemeProvider>

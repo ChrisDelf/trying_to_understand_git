@@ -4,11 +4,12 @@ import ListItemText from "@mui/material/ListItemText";
 import IconButton from "@mui/material/IconButton";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 import { ThemeProvider } from "@mui/material";
+import PropTypes from "prop-types"; // Import PropTypes
 import mainTheme from "../../app/themes";
 
 const renderRow = (props) => {
   {
-    const { name, index, theme } = props;
+    const { name, index } = props;
 
     return (
       <div>
@@ -22,27 +23,37 @@ const renderRow = (props) => {
             </IconButton>
           }
         >
-          <ListItemText primary={`Line item ${index}`} />
+          <ListItemText primary={`${name}`} />
         </ListItem>
       </div>
     );
   }
 };
 
-const MusicList = () => {
+const MusicList = (props) => {
+  const { songs } = props;
+
   return (
     <ThemeProvider theme={mainTheme}>
       <FixedSizeList
         height={400}
         width={360}
         itemSize={43}
-        itemCount={3}
+        itemCount={songs.length}
         overscanCount={5}
       >
-        {renderRow}
+        {({ index, style }) => (
+          <div style={style}>
+            {renderRow({ name: songs[index].name, index })}
+          </div>
+        )}
       </FixedSizeList>
     </ThemeProvider>
   );
+};
+// Define propTypes for MusicList
+MusicList.propTypes = {
+  songs: PropTypes.arrayOf(PropTypes.object).isRequired, // Define the prop type for 'songs'
 };
 
 export default MusicList;
