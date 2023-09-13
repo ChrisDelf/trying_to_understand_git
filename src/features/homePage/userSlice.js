@@ -42,9 +42,8 @@ const userSlice = createSlice({
       .addCase(fetchSongs.fulfilled, (state, action) => {
         state.status = "succeeded";
         const loadedSongs = action.payload 
-          console.log(loadedSongs)
           // added all fetched songs to the array
-        state.songs = state.songs.concat(loadedSongs);
+        state.songs = loadedSongs.success;
       })
       .addCase(fetchSongs.rejected, (state, action) => {
         state.status = "failed";
