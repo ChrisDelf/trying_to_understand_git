@@ -25,11 +25,10 @@ const LoginPage = () => {
     }
   };
 
-    console.log(mainTheme.palette.primary)
 
   const canLogin = Boolean(name) && Boolean(password);
 
-  return (
+  return ( 
     <ThemeProvider theme={mainTheme}>
       <section>
         <h2>Login</h2>

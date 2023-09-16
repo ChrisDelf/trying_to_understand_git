@@ -7,7 +7,8 @@ const initialState = {
   name: "smelly",
   email: "",
   error: null,
-  status: "idle", //'idle' | 'loading' | 'succeeded' | 'failed'
+  status: "idle", //'idle' | 'loading' | 'succeeded' | 'failed',
+  selectedSong: null,
   songs: [],
   isLoggedIn: false,
 };
@@ -33,8 +34,17 @@ const userSlice = createSlice({
       state.email = "";
       state.isLoggedIn = false;
     },
+    setSelectedSong: (state, action) => 
+      {
+        state.selectedSong = action.payload
+    },
+    setStatus: (state, action) =>
+      { 
+        state.status = action.payload
+      }
   },
-  extraReducers(builder) {
+
+      extraReducers(builder) {
     builder
       .addCase(fetchSongs.pending, (state, action) => {
         state.status = "loading";
@@ -54,6 +64,6 @@ const userSlice = createSlice({
 
 export const selectUser = (state) => state.user.status;
 
-export const { setUser, logOutUser } = userSlice.actions;
+export const { setUser, logOutUser, setSelectedSong, setStatus } = userSlice.actions;
 
 export default userSlice.reducer;
