@@ -1,4 +1,6 @@
+import { useEffect, useState } from "react";
 import { FixedSizeList } from "react-window";
+import { useDispatch, useSelector } from "react-redux";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import IconButton from "@mui/material/IconButton";
@@ -6,32 +8,19 @@ import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 import { ThemeProvider } from "@mui/material";
 import PropTypes from "prop-types"; // Import PropTypes
 import mainTheme from "../../app/themes";
-
-const renderRow = (props) => {
-  {
-    const { name, index } = props;
-
-    return (
-      <div>
-        <ListItem
-          key={index}
-          disableGutter
-          color="primary"
-          secondaryAction={
-            <IconButton aria-label="comment">
-              <PlayCircleIcon color="primary" />
-            </IconButton>
-          }
-        >
-          <ListItemText primary={`${name}`} />
-        </ListItem>
-      </div>
-    );
-  }
-};
+import { setSelectedSong } from "./userSlice";
 
 const MusicList = (props) => {
   const { songs } = props;
+  const [ selectSong, setSelectSong] = useState("")
+
+  const dispatch = useDispatch();
+
+    useEffect(() =>{
+        console.log(selectSong)
+        dispatch(setSelectedSong(selectSong))
+
+    },[selectSong])
 
   return (
     <ThemeProvider theme={mainTheme}>
@@ -44,7 +33,20 @@ const MusicList = (props) => {
       >
         {({ index, style }) => (
           <div style={style}>
-            {renderRow({ name: songs[index].name, index })}
+            <ListItem
+              key={index}
+              color="primary"
+              secondaryAction={
+                <IconButton
+                  aria-label="comment"
+                  onClick={()=> {setSelectSong(songs[index].id)}}
+                >
+                  <PlayCircleIcon color="primary" />
+                </IconButton>
+              }
+            >
+              <ListItemText primary={`${songs[index].name}`} />
+            </ListItem>
           </div>
         )}
       </FixedSizeList>
@@ -54,6 +56,7 @@ const MusicList = (props) => {
 // Define propTypes for MusicList
 MusicList.propTypes = {
   songs: PropTypes.arrayOf(PropTypes.object).isRequired, // Define the prop type for 'songs'
+  // onClickSelectSong: PropTypes.func.isRequired
 };
 
 export default MusicList;

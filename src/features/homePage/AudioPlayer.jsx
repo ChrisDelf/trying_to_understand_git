@@ -6,7 +6,7 @@ import mainTheme from "../../app/themes";
 const AudioPlayer = () => {
   return (
     <ThemeProvider theme={mainTheme}>
-      <ReactAudioPlayer src="http://localhost:3500/song/play/1" autoPlay controls />
+      <ReactAudioPlayer src="derp" autoPlay controls />
     </ThemeProvider>
   );
 };
