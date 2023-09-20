@@ -36,7 +36,7 @@ const userSlice = createSlice({
     },
     setSelectedSong: (state, action) => 
       {
-        state.selectedSong = action.payload
+        state.selectedSong = SERVER_URL+ 'play/' + `${action.payload}`
     },
     setStatus: (state, action) =>
       { 
