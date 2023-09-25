@@ -6,7 +6,11 @@ import { Button, ThemeProvider } from "@mui/material";
 import mainTheme from "../../app/themes";
 import AudioPlayer from "./AudioPlayer";
 
+// Here lives the primary state for the audio Object
+const audio = new Audio();
+
 const HomePage = () => {
+  const audioMain = audio;
   const dispatch = useDispatch();
 
   const userStatus = useSelector(selectUser);
@@ -22,10 +26,9 @@ const HomePage = () => {
     }
   }, [userStatus]);
   const userInfo = useSelector((state) => state.user);
-    
 
   return (
-    <ThemeProvider theme={mainTheme}>
+    <>
       <section>
         <h2>Hello</h2>
         {userInfo && userInfo.name
@@ -37,8 +40,8 @@ const HomePage = () => {
         </Button>
         <MusicList songs={userInfo.songs} />
       </section>
-      <AudioPlayer />
-    </ThemeProvider>
+      <AudioPlayer audio={audioMain} />
+    </>
   );
 };
 

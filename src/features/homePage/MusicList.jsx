@@ -39,7 +39,7 @@ const MusicList = (props) => {
               secondaryAction={
                 <IconButton
                   aria-label="comment"
-                  onClick={()=> {setSelectSong(songs[index].id)}}
+                  onClick={()=> {setSelectSong({src: songs[index].id, title: songs[index].name})}}
                 >
                   <PlayCircleIcon color="primary" />
                 </IconButton>
