@@ -5,9 +5,13 @@ import { useSelector } from "react-redux";
 import DisplayTrack from "./DisplayTrack";
 import Controls from "./Controls";
 import ProgressBar from "./ProgressBar";
+import "../../styles/customize-progress-bar.css";
+import "../../styles/index.css";
+import TopBar from "./TopBar";
 
 const AudioPlayer = () => {
   const selectedSong = useSelector((state) => state.user.selectedSong); // Create a selector to get the selected song from Redux store
+  const [trackIndex, setTrackIndex] = useState(0);
   const [currentTrack, setCurrentTrack] = useState(selectedSong);
   const [timeProgress, setTimeProgress] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -22,17 +26,51 @@ const AudioPlayer = () => {
     setCurrentTrack(selectedSong);
   }, [selectedSong]);
 
+  // const handleNext = () => {
+  //  if (trackIndex >= tracks.length - 1) {
+  //    setTrackIndex(0);
+  //    setCurrentTrack(tracks[0]);
+  //  } else {
+  //    setTrackIndex((prev) => prev + 1);
+  //    setCurrentTrack(tracks[trackIndex + 1]);
+  //  }
+  // };
+
   return (
-    <ThemeProvider theme={mainTheme}>
+    <>
+      <TopBar />
       {currentTrack.src !== "http://localhost:3500/song/play/undefined" ? (
-        <>
-          <DisplayTrack currentTrack={currentTrack} setDuration={setDuration} audioRef={audioRef} progressBarRef={progressBarRef} />
-          <Controls audioRef={audioRef} setTimeProgress = {setTimeProgress} duration={duration} progressBarRef={progressBarRef} />
-          <ProgressBar timeProgress={timeProgress} duration={duration} progressBarRef={progressBarRef} audioRef={audioRef} />
-        </>
+        <div className="audio-player">
+          <div className="inner">
+            <DisplayTrack
+              {...{
+                currentTrack,
+                audioRef,
+                setDuration,
+                progressBarRef,
+                // handleNext,
+              }}
+            />
+            <Controls
+              {...{
+                audioRef,
+                progressBarRef,
+                duration,
+                setTimeProgress,
+                // tracks,
+                trackIndex,
+                setTrackIndex,
+                setCurrentTrack,
+                // handleNext,
+              }}
+            />
+            <ProgressBar
+              {...{ progressBarRef, audioRef, timeProgress, duration }}
+            />
+          </div>
+        </div>
       ) : null}
-    </ThemeProvider>
+    </>
   );
 };
-
 export default AudioPlayer;

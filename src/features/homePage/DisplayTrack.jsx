@@ -1,12 +1,15 @@
 import PropTypes from "prop-types";
-import { useEffect } from "react";
+import React,  { useEffect } from "react";
 import { BsMusicNoteBeamed } from "react-icons/bs";
+import "../../styles/customize-progress-bar.css";
+import "../../styles/index.css";
 
 const DisplayTrack = ({
   currentTrack,
   audioRef,
   setDuration,
   progressBarRef,
+  // handleNext,
 }) => {
   const onLoadedMetadata = () => {
     const seconds = audioRef.current.duration;
@@ -14,13 +17,13 @@ const DisplayTrack = ({
     progressBarRef.current.max = seconds;
   };
 
- 
   return (
     <div>
       <audio
         src={currentTrack.src}
         ref={audioRef}
         onLoadedMetadata={onLoadedMetadata}
+        // onEnded={handleNext}
       />
       <div className="audio-info">
         <div className="audio-image">
