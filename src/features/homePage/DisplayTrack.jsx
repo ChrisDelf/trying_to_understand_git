@@ -3,6 +3,7 @@ import React,  { useEffect } from "react";
 import { BsMusicNoteBeamed } from "react-icons/bs";
 import "../../styles/customize-progress-bar.css";
 import "../../styles/index.css";
+import { useSelector } from "react-redux";
 const SERVER_URL = "http://localhost:3500/song/";
 
 const DisplayTrack = ({
@@ -11,18 +12,26 @@ const DisplayTrack = ({
   setDuration,
   progressBarRef,
   handleNext,
+  rerender
 }) => {
+  // Create a selector to get the selected song from Redux store
   const onLoadedMetadata = () => {
     const seconds = audioRef.current.duration;
     setDuration(seconds);
     progressBarRef.current.max = seconds;
   };
- console.log(currentTrack)
+
+
+//   useEffect(() => {
+//     // You can perform any additional actions when the selected song changes here
+//     // For example, you can update the state or perform other side effects.
+//     console.log(currentTrack.id)
+//   }, [rerender]);
 
   return (
     <div>
       <audio
-        src={SERVER_URL + "play/"+`${currentTrack.id}`}
+        src={currentTrack.src}
         ref={audioRef}
         onLoadedMetadata={onLoadedMetadata}
         onEnded={handleNext}
@@ -40,7 +49,7 @@ const DisplayTrack = ({
           )}
         </div>
         <div className="text">
-          <p className="title">{currentTrack.name}</p>
+          <p className="title">{currentTrack.title}</p>
           <p>{currentTrack.author}</p>
         </div>
       </div>

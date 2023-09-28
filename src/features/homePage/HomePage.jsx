@@ -1,8 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSongs, selectUser, setStatus } from "./userSlice";
 import MusicList from "./MusicList";
-import { Button, ThemeProvider } from "@mui/material";
+import { Button, ThemeProvider, setRef } from "@mui/material";
 import mainTheme from "../../app/themes";
 import AudioPlayer from "./AudioPlayer";
 
@@ -10,6 +10,7 @@ import AudioPlayer from "./AudioPlayer";
 const audio = new Audio();
 
 const HomePage = () => {
+  const [rerender, setRerender] = useState(true);
   const audioMain = audio;
   const dispatch = useDispatch();
 
@@ -38,9 +39,9 @@ const HomePage = () => {
         <Button onClick={onStatusClick} variant="contained" color="primary">
           refresh
         </Button>
-        <MusicList songs={userInfo.songs} />
+        <MusicList songs={userInfo.songs} rerender={rerender} setRerender={setRerender} />
       </section>
-      <AudioPlayer tracks={userInfo.songs} audio={audioMain} />
+      <AudioPlayer tracks={userInfo.songs} audio={audioMain} rerender={rerender} />
     </>
   );
 };
