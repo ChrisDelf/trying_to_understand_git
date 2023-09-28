@@ -12,15 +12,18 @@ import { setSelectedSong } from "./userSlice";
 
 const MusicList = (props) => {
   const { songs } = props;
-  const [ selectSong, setSelectSong] = useState("")
+  const [selectSong, setSelectSong] = useState("");
 
   const dispatch = useDispatch();
+  const handleOnPlayClick = (index) => {
 
-    useEffect(() =>{
-        console.log(selectSong)
-        dispatch(setSelectedSong(selectSong))
-
-    },[selectSong])
+    setSelectSong({
+      src: songs[index].id,
+      title: songs[index].name,
+      index: index,
+    });
+    dispatch(setSelectedSong(selectSong));
+  };
 
   return (
     <ThemeProvider theme={mainTheme}>
@@ -39,9 +42,11 @@ const MusicList = (props) => {
               secondaryAction={
                 <IconButton
                   aria-label="comment"
-                  onClick={()=> {setSelectSong({src: songs[index].id, title: songs[index].name})}}
+                  onClick={() => {
+                    handleOnPlayClick(index);
+                  }}
                 >
-                  <PlayCircleIcon color="primary" />
+                  <PlayCircleIcon color="primary"  />
                 </IconButton>
               }
             >

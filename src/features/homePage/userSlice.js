@@ -8,7 +8,8 @@ const initialState = {
   email: "",
   error: null,
   status: "idle", //'idle' | 'loading' | 'succeeded' | 'failed',
-  selectedSong: {src: null, title: null},
+  index: 0,
+  selectedSong: {src : null, title: null},
   songs: [],
   isLoggedIn: false,
 };
@@ -37,7 +38,8 @@ const userSlice = createSlice({
     setSelectedSong: (state, action) => 
       {
         state.selectedSong.src = SERVER_URL + "play/"+`${action.payload.src}`,
-        state.selectedSong.title = action.payload.title
+        state.selectedSong.title = action.payload.title,
+        state.index = action.payload.index
     },
     setStatus: (state, action) =>
       { 

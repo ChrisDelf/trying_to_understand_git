@@ -23,11 +23,11 @@ const Controls = ({
   progressBarRef,
   duration,
   setTimeProgress,
-  // tracks,
-  // trackIndex,
-  // setTrackIndex,
-  // setCurrentTrack,
-  // handleNext,
+  tracks,
+  trackIndex,
+  setTrackIndex,
+  setCurrentTrack,
+  handleNext,
 }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(60);
@@ -68,16 +68,16 @@ const Controls = ({
     audioRef.current.currentTime -= 15;
   };
 
-  // const handlePrevious = () => {
-  //   if (trackIndex === 0) {
-  //     let lastTrackIndex = tracks.length - 1;
-  //     setTrackIndex(lastTrackIndex);
-  //     setCurrentTrack(tracks[lastTrackIndex]);
-  //   } else {
-  //     setTrackIndex((prev) => prev - 1);
-  //     setCurrentTrack(tracks[trackIndex - 1]);
-  //   }
-  // };
+  const handlePrevious = () => {
+    if (trackIndex === 0) {
+      let lastTrackIndex = tracks.length - 1;
+      setTrackIndex(lastTrackIndex);
+      setCurrentTrack(tracks[lastTrackIndex]);
+    } else {
+      setTrackIndex((prev) => prev - 1);
+      setCurrentTrack(tracks[trackIndex - 1]);
+    }
+  };
 
   useEffect(() => {
     if (audioRef) {
@@ -89,9 +89,9 @@ const Controls = ({
   return (
     <div className="controls-wrapper">
       <div className="controls">
-      {/*  <button onClick={handlePrevious}>
+        <button onClick={handlePrevious}>
           <IoPlaySkipBackSharp />
-        </button>*/}
+        </button>
         <button onClick={skipBackward}>
           <IoPlayBackSharp />
         </button>
@@ -102,9 +102,9 @@ const Controls = ({
         <button onClick={skipForward}>
           <IoPlayForwardSharp />
         </button>
-      {/*<button onClick={handleNext}>
+      <button onClick={handleNext}>
           <IoPlaySkipForwardSharp />
-        </button>*/}
+        </button>
       </div>
       <div className="volume">
         <button onClick={() => setMuteVolume((prev) => !prev)}>

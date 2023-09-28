@@ -40,7 +40,7 @@ const HomePage = () => {
         </Button>
         <MusicList songs={userInfo.songs} />
       </section>
-      <AudioPlayer audio={audioMain} />
+      <AudioPlayer tracks={userInfo.songs} audio={audioMain} />
     </>
   );
 };
