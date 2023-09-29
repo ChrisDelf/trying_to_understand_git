@@ -27,9 +27,14 @@ const DisplayTrack = ({
 //     // For example, you can update the state or perform other side effects.
 //     console.log(currentTrack.id)
 //   }, [rerender]);
+ if (currentTrack == undefined) {
+    return(<div></div>)
+ }
 
   return (
     <div>
+      {currentTrack !== undefined || currentTrack !== "http://localhost:3500/song/play/null" ? (
+      <>
       <audio
         src={currentTrack.src}
         ref={audioRef}
@@ -53,6 +58,8 @@ const DisplayTrack = ({
           <p>{currentTrack.author}</p>
         </div>
       </div>
+      </>
+      ) : null}
     </div>
   );
 };
