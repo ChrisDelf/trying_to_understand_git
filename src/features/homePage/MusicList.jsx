@@ -11,18 +11,20 @@ import mainTheme from "../../app/themes";
 import { setSelectedSong } from "./userSlice";
 
 const MusicList = (props) => {
-  const { songs } = props;
-  const [ selectSong, setSelectSong] = useState("")
+  const { songs, setRerender, rerender } = props;
 
   const dispatch = useDispatch();
+  const handleOnPlayClick = (index) => {
+   let  tempSong = {
+      src: songs[index].id,
+      title: songs[index].name,
+      index: index,
+    }
+    dispatch(setSelectedSong(tempSong));
+    // setRerender(!rerender)
+  };
 
-    useEffect(() =>{
-        console.log(selectSong)
-        dispatch(setSelectedSong(selectSong))
-
-    },[selectSong])
-
-  return (
+   return (
     <ThemeProvider theme={mainTheme}>
       <FixedSizeList
         height={400}
@@ -39,7 +41,9 @@ const MusicList = (props) => {
               secondaryAction={
                 <IconButton
                   aria-label="comment"
-                  onClick={()=> {setSelectSong({src: songs[index].id, title: songs[index].name})}}
+                  onClick={() => {
+                    handleOnPlayClick(index);
+                  }}
                 >
                   <PlayCircleIcon color="primary" />
                 </IconButton>
@@ -56,6 +60,8 @@ const MusicList = (props) => {
 // Define propTypes for MusicList
 MusicList.propTypes = {
   songs: PropTypes.arrayOf(PropTypes.object).isRequired, // Define the prop type for 'songs'
+  rerender: PropTypes.bool,
+  setRerender: PropTypes.func,
   // onClickSelectSong: PropTypes.func.isRequired
 };
 
