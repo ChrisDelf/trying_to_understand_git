@@ -5,7 +5,8 @@ import PropTypes from "prop-types";
 
 const ProgressBar = ({ progressBarRef, audioRef, timeProgress, duration }) => {
 
-const handleProgressChange = () => {
+const handleProgressChange = (event) => {
+    event.preventDefault();
     audioRef.current.currentTime = progressBarRef.current.value;
   };
 

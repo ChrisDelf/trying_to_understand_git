@@ -5,6 +5,7 @@ import MusicList from "./MusicList";
 import { Button, ThemeProvider, setRef } from "@mui/material";
 import mainTheme from "../../app/themes";
 import AudioPlayer from "./AudioPlayer";
+import MenuBar from "./MenuBar";
 
 // Here lives the primary state for the audio Object
 const audio = new Audio();
@@ -30,6 +31,7 @@ const HomePage = () => {
 
   return (
     <>
+      <MenuBar />
       <section>
         <h2>Hello</h2>
         {userInfo && userInfo.name

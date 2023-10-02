@@ -9,15 +9,20 @@ const initialState = {
   error: null,
   status: "idle", //'idle' | 'loading' | 'succeeded' | 'failed',
   index: 0,
-  selectedSong: {src : null, title: null},
+  selectedSong: { src: null, title: null },
   songs: [],
   isLoggedIn: false,
 };
 
 export const fetchSongs = createAsyncThunk("songs", async () => {
-    const response = await axios.get(SERVER_URL);
-    console.log(response)
-    return response.data;
+  const response = await axios.get(SERVER_URL);
+  console.log(response);
+  return response.data;
+});
+
+export const postSong = createAsyncThunk("upload", async (data) => {
+  const response = await axios.post(`${SERVER_URL}upload`,data);
+  return response.data;
 });
 
 const userSlice = createSlice({
@@ -35,31 +40,38 @@ const userSlice = createSlice({
       state.email = "";
       state.isLoggedIn = false;
     },
-    setSelectedSong: (state, action) => 
-      {
-        console.log(action)
-        state.selectedSong.src = SERVER_URL + "play/"+`${action.payload.src}`,
-        state.selectedSong.title = action.payload.title,
-        state.index = action.payload.index
+    setSelectedSong: (state, action) => {
+      (state.selectedSong.src = SERVER_URL + "play/" + `${action.payload.src}`),
+        (state.selectedSong.title = action.payload.title),
+        (state.index = action.payload.index);
     },
-    setStatus: (state, action) =>
-      { 
-        state.status = action.payload
-      }
+    setStatus: (state, action) => {
+      state.status = action.payload;
+    },
   },
 
-      extraReducers(builder) {
+  extraReducers(builder) {
     builder
       .addCase(fetchSongs.pending, (state, action) => {
         state.status = "loading";
       })
       .addCase(fetchSongs.fulfilled, (state, action) => {
         state.status = "succeeded";
-        const loadedSongs = action.payload 
-          // added all fetched songs to the array
+        const loadedSongs = action.payload;
+        // added all fetched songs to the array
         state.songs = loadedSongs.success;
       })
       .addCase(fetchSongs.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      })
+     .addCase(postSong.pending, (state, action) => {
+        state.status = "loading";
+      })
+      .addCase(postSong.fulfilled, (state, action) => {
+        state.status = "succeeded";
+      })
+      .addCase(postSong.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
       });
@@ -68,6 +80,7 @@ const userSlice = createSlice({
 
 export const selectUser = (state) => state.user.status;
 
-export const { setUser, logOutUser, setSelectedSong, setStatus } = userSlice.actions;
+export const { setUser, logOutUser, setSelectedSong, setStatus } =
+  userSlice.actions;
 
 export default userSlice.reducer;
