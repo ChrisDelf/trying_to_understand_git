@@ -9,22 +9,26 @@ import { ThemeProvider } from "@mui/material";
 import PropTypes from "prop-types"; // Import PropTypes
 import mainTheme from "../../app/themes";
 import { setSelectedSong } from "./userSlice";
+import { FileDownload } from "@mui/icons-material";
 
 const MusicList = (props) => {
   const { songs, setRerender, rerender } = props;
 
   const dispatch = useDispatch();
   const handleOnPlayClick = (index) => {
-   let  tempSong = {
+    let tempSong = {
       src: songs[index].id,
       title: songs[index].name,
       index: index,
-    }
+    };
     dispatch(setSelectedSong(tempSong));
     // setRerender(!rerender)
   };
 
-   return (
+  const handleOnDownloadClick = (index) =>
+    {}
+
+  return (
     <ThemeProvider theme={mainTheme}>
       <FixedSizeList
         height={400}
@@ -39,14 +43,19 @@ const MusicList = (props) => {
               key={index}
               color="primary"
               secondaryAction={
-                <IconButton
-                  aria-label="comment"
-                  onClick={() => {
-                    handleOnPlayClick(index);
-                  }}
-                >
-                  <PlayCircleIcon color="primary" />
-                </IconButton>
+                <>
+                  <IconButton
+                    aria-label="comment"
+                    onClick={() => {
+                      handleOnPlayClick(index);
+                    }}
+                  >
+                    <PlayCircleIcon color="primary" />
+                  </IconButton>
+                  <IconButton aria-label="comment" onClick={() => {handleOnDownloadClick(index)}}>
+                    <FileDownload color="primary" />
+                  </IconButton>
+                </>
               }
             >
               <ListItemText primary={`${songs[index].name}`} />
