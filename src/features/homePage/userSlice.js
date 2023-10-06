@@ -25,10 +25,10 @@ export const postSong = createAsyncThunk("upload", async (data) => {
   return response.data;
 });
 
-export const getDownload = createAsyncThunk("download", async (data) => {
+export const getFile = createAsyncThunk('download', async (data) => {
   const response = await axios.get(`${SERVER_URL}download/${data}`);
-    return response.data;
-})
+  return response.data;
+});
 
 const userSlice = createSlice({
   name: "user",
@@ -81,13 +81,13 @@ const userSlice = createSlice({
         state.error = action.error.message;
       })
 
-     .addCase(getDownload.pending, (state, action) => {
+     .addCase(getFile.pending, (state, action) => {
         state.status = "loading";
       })
-      .addCase(getDownload.fulfilled, (state, action) => {
-        state.status = "succeeded";
+      .addCase(getFile.fulfilled, (state, action) => {
+        state.status = "succeeded"
       })
-      .addCase(getDownload.rejected, (state, action) => {
+      .addCase(getFile.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
       });
