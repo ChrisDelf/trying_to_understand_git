@@ -9,14 +9,14 @@ import {
 import LoginPage from "./features/loginPage/LoginPage";
 import HomePage from "./features/homePage/HomePage";
 import MenuBar from "./features/homePage/MenuBar";
-import DownloadList from "./features/homePage/downloadPage/DownloadPage";
+import DownloadPage from "./features/homePage/downloadPage/DownloadPage";
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route exact path="/" element={<LoginPage />} />
         <Route exact path="/homepage" element={<HomePage />} />
-        <Route exact path="/download" element={<DownloadList />} />
+        <Route exact path="/download" element={<DownloadPage />} />
       </Routes>
     </BrowserRouter>
   );
