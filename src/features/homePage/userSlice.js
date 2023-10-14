@@ -30,6 +30,7 @@ export const getFile = createAsyncThunk('download', async (data) => {
   return response.data;
 });
 
+
 const userSlice = createSlice({
   name: "user",
   initialState,
