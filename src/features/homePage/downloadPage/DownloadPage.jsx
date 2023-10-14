@@ -12,10 +12,8 @@ import { Label } from "@mui/icons-material";
 import { useDispatch } from "react-redux";
 import { io } from "socket.io-client";
 import ChatWindow from "../chatWindow/ChatWindow";
-import axios from "axios";
 
 const api = "http://localhost:3000";
-const SERVER_URL = "http://localhost:3500/song/";
 
 const DownloadPage = () => {
   const [uploadLink, setUploadLink] = useState("");
@@ -26,23 +24,14 @@ const DownloadPage = () => {
   const dispatch = useDispatch();
   const onLinkChnage = (e) => setUploadLink(e.target.value);
 
-  const [jobs, setJobs] = useState([
-    { id: 1, status: "finished" },
-    { id: 2, status: "finished" },
-    { id: 3, status: "unfinished" },
-  ]);
+  const [jobs, setJobs] = useState([])
 
   const onUploadClick = () => {
+    
     let data = { link: uploadLink };
     dispatch(postSong(data));
-  };
-  const fetchJobs = async () => {
-    try {
-      const reponse = await axios.get(`${SERVER_URL}/jobs`);
-      setJobs(reponse);
-    } catch (error) {
-      console.log(error);
-    }
+    setUploadLink("")
+    
   };
 
   useEffect(() => {
@@ -73,8 +62,7 @@ const DownloadPage = () => {
       tempSocket.on("message", (message) => {
         setMessages((prevMessages) => [...prevMessages, message]);
         tempSocket.on("song-finished", (newSong) => {
-          tempSocket.emit("song-finished");
-          console.log(newSong);
+        console.log(newSong);
           // fetchJobs();
         });
       });
@@ -104,7 +92,8 @@ const DownloadPage = () => {
           <ListItem key={index}>
             <ListItemText>
               {item.id}
-              {item.status}
+            {"      "}
+              {item.link}
             </ListItemText>
             <SyncTwoToneIcon />
           </ListItem>
