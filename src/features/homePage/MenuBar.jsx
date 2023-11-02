@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
@@ -13,10 +13,19 @@ import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import TextField from "@mui/material/TextField";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { postForSong } from "./userSlice";
 
 export default function MenuBar(props) {
   const { setPage } = props;
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [inputText, setInputText] = useState("");
+  const [search, setSearch] = useState("");
+
+  const dispatch = useDispatch();
+
+  const onSearchChange = (e) => setSearch(e.target.value);
+
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
   const handleClick = (event) => {
@@ -24,6 +33,19 @@ export default function MenuBar(props) {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  const handleSubmit = () =>
+    {
+    
+     let data = search
+     dispatch(postForSong(data))
+     setSearch("")
+        
+    }
+  const handleKeyPress = (event) => {
+    if (event.key === `Enter`) {
+      handleSubmit();
+    }
   };
 
   return (
@@ -46,7 +68,15 @@ export default function MenuBar(props) {
           Home
         </Typography>
 
-        <TextField id="outlined-basic" label="Search" variant="outlined" />
+        <TextField
+          id="outlined-basic"
+          type="text"
+          label="Search"
+          variant="outlined"
+          value={search}
+          onChange={onSearchChange}
+          onKeyDown={handleKeyPress}
+        />
         <Typography
           sx={{ minWidth: 100 }}
           onClick={() => {

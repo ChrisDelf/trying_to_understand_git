@@ -22,7 +22,7 @@ const DownloadPage = () => {
   const [tempSocket, setTempSocket] = useState(null);
 
   const dispatch = useDispatch();
-  const onLinkChnage = (e) => setUploadLink(e.target.value);
+  const onLinkChange = (e) => setUploadLink(e.target.value);
 
   const [jobs, setJobs] = useState([])
 
@@ -80,7 +80,7 @@ const DownloadPage = () => {
           variant="filled"
           type="text"
           value={uploadLink}
-          onChange={onLinkChnage}
+          onChange={onLinkChange}
         />
         <Button variant="contained" onClick={onUploadClick}>
           Upload
