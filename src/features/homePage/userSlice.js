@@ -21,15 +21,19 @@ export const fetchSongs = createAsyncThunk("songs", async () => {
 });
 
 export const postSong = createAsyncThunk("upload", async (data) => {
-  const response = await axios.post(`${SERVER_URL}upload`,data);
+  const response = await axios.post(`${SERVER_URL}upload`, data);
   return response.data;
 });
 
-export const getFile = createAsyncThunk('download', async (data) => {
+export const getFile = createAsyncThunk("download", async (data) => {
   const response = await axios.get(`${SERVER_URL}download/${data}`);
   return response.data;
 });
 
+export const postForSong = createAsyncThunk("search", async (data) => {
+  const response = await axios.post(`${SERVER_URL}search/`, data);
+  return response.data;
+});
 
 const userSlice = createSlice({
   name: "user",
@@ -71,7 +75,7 @@ const userSlice = createSlice({
         state.status = "failed";
         state.error = action.error.message;
       })
-     .addCase(postSong.pending, (state, action) => {
+      .addCase(postSong.pending, (state, action) => {
         state.status = "loading";
       })
       .addCase(postSong.fulfilled, (state, action) => {
@@ -82,13 +86,26 @@ const userSlice = createSlice({
         state.error = action.error.message;
       })
 
-     .addCase(getFile.pending, (state, action) => {
+      .addCase(getFile.pending, (state, action) => {
         state.status = "loading";
       })
       .addCase(getFile.fulfilled, (state, action) => {
-        state.status = "succeeded"
+        state.status = "succeeded";
       })
       .addCase(getFile.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      })
+
+      .addCase(postForSong.pending, (state, action) => {
+        state.status = "loading";
+      })
+      .addCase(postForSong.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        const loadedSongs = action.payload;
+        state.songs = loadedSongs.songs;
+      })
+      .addCase(postForSong.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
       });
