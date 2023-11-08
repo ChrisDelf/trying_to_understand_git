@@ -8,14 +8,19 @@ import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 import { ThemeProvider } from "@mui/material";
 import PropTypes from "prop-types"; // Import PropTypes
 import mainTheme from "../../app/themes";
-import { setSelectedSong} from "./userSlice";
+import { setSelectedSong } from "./userSlice";
 import { FileDownload } from "@mui/icons-material";
 import axios from "axios";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
 const SERVER_URL = "http://localhost:3500/song/";
 
 const MusicList = (props) => {
   const { songs } = props;
+  // Create a state variable to track the toggle state
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const user = useSelector((state) => state.user);
 
@@ -29,19 +34,25 @@ const MusicList = (props) => {
     dispatch(setSelectedSong(tempSong));
     // setRerender(!rerender)
   };
+  // function to toggle our the state of the icon when clicked
+  const handleToggleFavorite = () => {
+    setIsFavorite(!isFavorite);
+  };
 
   const handleOnDownloadClick = async (song) => {
-     try {
+    try {
       // Make a GET request to the server to get the file
       const response = await axios.get(`${SERVER_URL}download/${song.id}`, {
-        responseType: 'blob', // Important: Set the response type to 'blob'
+        responseType: "blob", // Important: Set the response type to 'blob'
       });
 
       // Create a blob from the response data
-      const blob = new Blob([response.data], { type: response.headers['content-type'] });
+      const blob = new Blob([response.data], {
+        type: response.headers["content-type"],
+      });
 
       // Create a link element and trigger a download
-      const link = document.createElement('a');
+      const link = document.createElement("a");
       link.href = window.URL.createObjectURL(blob);
       link.download = `${song.fileName}`; // Set the desired file name
       document.body.appendChild(link);
@@ -50,13 +61,10 @@ const MusicList = (props) => {
       // Clean up: remove the link element
       document.body.removeChild(link);
     } catch (error) {
-      console.error('Error downloading file:', error);
+      console.error("Error downloading file:", error);
     }
+  };
 
-  }
-  
-
-  
   return (
     <ThemeProvider theme={mainTheme}>
       <FixedSizeList
@@ -89,10 +97,27 @@ const MusicList = (props) => {
                   >
                     <FileDownload color="primary" />
                   </IconButton>
+                  <IconButton
+                    aria-label="comment"
+                    onClick={() => {
+                     handleToggleFavorite() 
+                    }}
+                  >
+                  {isFavorite ?
+                    <FavoriteIcon color="primary" /> :
+                    <FavoriteBorderIcon color="primary" /> }
+                  </IconButton>
+                  <IconButton
+                    aria-label="comment"
+                    onClick={() => {
+                    }}
+                  >
+                  <MoreHorizIcon color="primary" />
+                  </IconButton>
                 </>
-              }
+             }
             >
-              <ListItemText primary={`${songs[index].name}`}/>
+              <ListItemText primary={`${songs[index].name}`} />
             </ListItem>
           </div>
         )}
