@@ -35,26 +35,31 @@ export const postForSong = createAsyncThunk("search", async (data) => {
   return response.data;
 });
 // playlist related actions
-export const postForPlaylist = createAsyncThunk("create Playlist", async (data) => {
-    const response = await axios.post(`${SERVER_URL}playlist/create`,data);
-    return response.data
-})
+export const postForPlaylist = createAsyncThunk(
+  "create Playlist",
+  async (data) => {
+    const response = await axios.post(`${SERVER_URL}playlist/create`, data);
+    return response.data;
+  },
+);
 
 export const addToPlaylist = createAsyncThunk("addSong", async (data) => {
-    const reponse = await axios.post(`${SERVER_URL}addSong/create`, data);
-    return reponse.data
-})
+  const reponse = await axios.post(`${SERVER_URL}addSong/create`, data);
+  return reponse.data;
+});
 
-export const removeFromPlaylist = createAsyncThunk("removeSong", async (data) => {
+export const removeFromPlaylist = createAsyncThunk(
+  "removeSong",
+  async (data) => {
     const reponse = await axios.delete(`${SERVER_URL}addSong/${data}`);
-    return reponse.data
-})
+    return reponse.data;
+  },
+);
 // like related actions
-export const postFavorite = createAsyncThunk("postFavorite", async (data) =>
-    {
-    const reponse = await axios.post(`${SERVER_URL}like`, data);
-    return reponse.data
-    })
+export const postFavorite = createAsyncThunk("postFavorite", async (data) => {
+  const reponse = await axios.post(`${SERVER_URL}like`, data);
+  return reponse.data;
+});
 
 const userSlice = createSlice({
   name: "user",
@@ -136,7 +141,7 @@ const userSlice = createSlice({
       })
       .addCase(postForPlaylist.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.playlist = action.payload
+        state.playlist = action.payload;
       })
       .addCase(postForPlaylist.rejected, (state, action) => {
         state.status = "failed";
@@ -147,7 +152,7 @@ const userSlice = createSlice({
       })
       .addCase(addToPlaylist.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.playlist = action.payload
+        state.playlist = action.payload;
       })
       .addCase(addToPlaylist.rejected, (state, action) => {
         state.status = "failed";
@@ -159,7 +164,7 @@ const userSlice = createSlice({
       })
       .addCase(removeFromPlaylist.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.playlist = action.payload
+        state.playlist = action.payload;
       })
       .addCase(removeFromPlaylist.rejected, (state, action) => {
         state.status = "failed";
