@@ -12,7 +12,7 @@ const DisplayTrack = ({
   setDuration,
   progressBarRef,
   handleNext,
-  rerender
+
 }) => {
   // Create a selector to get the selected song from Redux store
   const onLoadedMetadata = () => {
