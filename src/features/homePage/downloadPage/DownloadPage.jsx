@@ -50,9 +50,9 @@ const DownloadPage = () => {
       setJobs(jobs);
     });
 
-    return () => {
-      socket.disconnect();
-    };
+    // return () => {
+    //   socket.disconnect();
+    // };
   }, []);
 
   useEffect(() => {
