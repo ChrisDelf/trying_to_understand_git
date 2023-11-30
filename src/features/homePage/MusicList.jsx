@@ -13,7 +13,8 @@ import { FileDownload } from "@mui/icons-material";
 import axios from "axios";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import PlaylistDropdown from "../dropDownPlaylist/DropDownPlaylist";
 
 const SERVER_URL = "http://localhost:3500/song/";
 
@@ -21,6 +22,7 @@ const MusicList = (props) => {
   const { songs } = props;
   // Create a state variable to track the toggle state
   const [isFavorite, setIsFavorite] = useState(false);
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 
   const user = useSelector((state) => state.user);
 
@@ -65,11 +67,16 @@ const MusicList = (props) => {
     }
   };
 
+  const handleToggleDropdown = () => {
+    setIsDropdownVisible(!isDropdownVisible);
+    console.log(isDropdownVisible);
+  };
+
   return (
     <ThemeProvider theme={mainTheme}>
       <FixedSizeList
         height={400}
-        width={360}
+        width={500}
         itemSize={43}
         itemCount={songs.length}
         overscanCount={5}
@@ -100,24 +107,28 @@ const MusicList = (props) => {
                   <IconButton
                     aria-label="comment"
                     onClick={() => {
-                     handleToggleFavorite() 
+                      handleToggleFavorite();
                     }}
                   >
-                  {isFavorite ?
-                    <FavoriteIcon color="primary" /> :
-                    <FavoriteBorderIcon color="primary" /> }
+                    {isFavorite ? (
+                      <FavoriteIcon color="primary" />
+                    ) : (
+                      <FavoriteBorderIcon color="primary" />
+                    )}
                   </IconButton>
                   <IconButton
                     aria-label="comment"
                     onClick={() => {
+                      handleToggleDropdown();
                     }}
                   >
-                  <MoreHorizIcon color="primary" />
+                    {isDropdownVisible && <PlaylistDropdown />}
+                    <MoreHorizIcon color="primary" />
                   </IconButton>
                 </>
-             }
+              }
             >
-              <ListItemText primary={`${songs[index].name}`} />
+              <ListItemText primary={`${songs[index].name.slice(0,25)}`} />
             </ListItem>
           </div>
         )}
