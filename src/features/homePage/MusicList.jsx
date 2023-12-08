@@ -76,8 +76,8 @@ const MusicList = (props) => {
   return (
     <ThemeProvider theme={mainTheme}>
       <FixedSizeList
-        height={400}
-        width={500}
+        height={450}
+        width={600}
         itemSize={43}
         itemCount={songs.length}
         overscanCount={5}

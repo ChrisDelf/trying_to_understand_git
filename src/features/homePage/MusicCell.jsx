@@ -19,7 +19,7 @@ import PlaylistDropdown from "../dropDownPlaylist/DropDownPlaylist";
 const SERVER_URL = "http://localhost:3500/song/";
 
 const MusicCell = (props) => {
-  const { songs,style, index } = props;
+  const { songs, style, index } = props;
   // Create a state variable to track the toggle state
   const [isFavorite, setIsFavorite] = useState(false);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
@@ -69,70 +69,58 @@ const MusicCell = (props) => {
 
   const handleToggleDropdown = () => {
     setIsDropdownVisible(!isDropdownVisible);
-    console.log(isDropdownVisible);
   };
-  
- return (
-<div style={style} >
-            <ListItem
-              key={index}
-              color="primary"
-              secondaryAction={
-                <>
-                  <IconButton
-                    aria-label="comment"
-                    onClick={() => {
-                      handleOnPlayClick(index);
-                    }}
-                  >
-                    <PlayCircleIcon color="primary" />
-                  </IconButton>
-                  <IconButton
-                    aria-label="comment"
-                    onClick={() => {
-                      handleOnDownloadClick(songs[index]);
-                    }}
-                  >
-                    <FileDownload color="primary" />
-                  </IconButton>
-                  <IconButton
-                    aria-label="comment"
-                    onClick={() => {
-                      handleToggleFavorite();
-                    }}
-                  >
-                    {isFavorite ? (
-                      <FavoriteIcon color="primary" />
-                    ) : (
-                      <FavoriteBorderIcon color="primary" />
-                    )}
-                  </IconButton>
-                  <IconButton
-                    aria-label="comment"
-                    onClick={() => {
-                      handleToggleDropdown();
-                    }}
-                  >
-                    {isDropdownVisible && <PlaylistDropdown />}
-                    <MoreHorizIcon color="primary" />
-                  </IconButton>
-                </>
-              }
+
+  return (
+    <div style={style}>
+      <ListItem
+        key={index}
+        color="primary"
+        secondaryAction={
+          <>
+            <IconButton
+              aria-label="comment"
+              onClick={() => {
+                handleOnPlayClick(index);
+              }}
             >
-              <ListItemText primary={`${songs[index].name.slice(0,25)}`} />
-            </ListItem>
-          </div>
-
-
- )
+              <PlayCircleIcon color="primary" />
+            </IconButton>
+            <IconButton
+              aria-label="comment"
+              onClick={() => {
+                handleOnDownloadClick(songs[index]);
+              }}
+            >
+              <FileDownload color="primary" />
+            </IconButton>
+            <IconButton
+              aria-label="comment"
+              onClick={() => {
+                handleToggleFavorite();
+              }}
+            >
+              {isFavorite ? (
+                <FavoriteIcon color="primary" />
+              ) : (
+                <FavoriteBorderIcon color="primary" />
+              )}
+            </IconButton>
+          </>
+        }
+      >
+        <ListItemText primary={`${songs[index].name.slice(0, 25)}`} />
+      <PlaylistDropdown />
+      </ListItem>
+    </div>
+  );
 };
-
 
 // Define propTypes for MusicList
 MusicCell.propTypes = {
   songs: PropTypes.arrayOf(PropTypes.object).isRequired, // Define the prop type for 'songs'
   rerender: PropTypes.bool,
-  setRerender: PropTypes.func
+  setRerender: PropTypes.func,
   // onClickSelectSong: PropTypes.func.isRequired
 };
 export default MusicCell;

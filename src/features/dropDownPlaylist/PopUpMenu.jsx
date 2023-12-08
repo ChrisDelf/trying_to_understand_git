@@ -1,13 +1,14 @@
 
 // PopupMenu.js
 import React from 'react';
-import './PopupMenu.css';
+import './PopUpMenu.css';
 
 const PopupMenu = ({ onClose }) => {
   return (
     <div className="popup-menu">
       <div className="popup-content">
         {/* Your menu content goes here */}
+        GREETINGS NOOB HAH AHA AH AAHA 
         <button onClick={onClose}>Close</button>
       </div>
     </div>
