@@ -83,8 +83,13 @@ const MusicList = (props) => {
         overscanCount={5}
       >
         {({ index, style }) => (
-            <MusicCell songs={songs} style={style} index ={index} /> )}
-            {/* <div style={style}>
+          <>
+            <MusicCell songs={songs} style={style} index={index} />
+
+          </>
+        )}
+
+        {/* <div style={style}>
             <ListItem
               key={index}
               color="primary"

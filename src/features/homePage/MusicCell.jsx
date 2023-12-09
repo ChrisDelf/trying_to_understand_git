@@ -15,8 +15,13 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import PlaylistDropdown from "../dropDownPlaylist/DropDownPlaylist";
+import styled from "@emotion/styled";
 
 const SERVER_URL = "http://localhost:3500/song/";
+const StyledCell = styled('div')({
+    display: 'flex',
+
+});
 
 const MusicCell = (props) => {
   const { songs, style, index } = props;
@@ -73,11 +78,12 @@ const MusicCell = (props) => {
 
   return (
     <div style={style}>
+      
       <ListItem
         key={index}
         color="primary"
         secondaryAction={
-          <>
+          <StyledCell>
             <IconButton
               aria-label="comment"
               onClick={() => {
@@ -106,11 +112,11 @@ const MusicCell = (props) => {
                 <FavoriteBorderIcon color="primary" />
               )}
             </IconButton>
-          </>
+            <PlaylistDropdown />
+          </StyledCell>
         }
       >
         <ListItemText primary={`${songs[index].name.slice(0, 25)}`} />
-      <PlaylistDropdown />
       </ListItem>
     </div>
   );
