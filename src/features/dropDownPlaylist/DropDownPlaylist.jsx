@@ -55,7 +55,8 @@ const StyledMenu = styled((props) => (
 }));
 
 const PlaylistDropdown = () => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [isPlayListM, setPlayListM] = useState(false);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -63,6 +64,12 @@ const PlaylistDropdown = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+ const handlePopUpPlaylist = () =>{
+    setAnchorEl(null);
+    setPlayListM(!isPlayListM)
+    console.log(isPlayListM)
+
+ }
 
   return (
     <div>
@@ -87,9 +94,9 @@ const PlaylistDropdown = () => {
         open={open}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose} disableRipple>
+        <MenuItem onClick={handlePopUpPlaylist} disableRipple>
           <EditIcon />
-          Edit
+          Add To Playlist
         </MenuItem>
      </StyledMenu>
     </div>

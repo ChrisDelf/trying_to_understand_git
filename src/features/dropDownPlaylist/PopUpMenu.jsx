@@ -3,7 +3,7 @@
 import React from 'react';
 import './PopUpMenu.css';
 
-const PopupMenu = ({ onClose }) => {
+const PopUpMenu = ({ onClose }) => {
   return (
     <div className="popup-menu">
       <div className="popup-content">
@@ -15,4 +15,4 @@ const PopupMenu = ({ onClose }) => {
   );
 };
 
-export default PopupMenu;
+export default PopUpMenu;

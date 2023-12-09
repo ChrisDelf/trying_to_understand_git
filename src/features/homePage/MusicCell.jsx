@@ -112,7 +112,7 @@ const MusicCell = (props) => {
                 <FavoriteBorderIcon color="primary" />
               )}
             </IconButton>
-            <PlaylistDropdown />
+            <PlaylistDropdown song={songs[index]} />
           </StyledCell>
         }
       >
