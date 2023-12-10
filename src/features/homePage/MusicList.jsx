@@ -76,15 +76,20 @@ const MusicList = (props) => {
   return (
     <ThemeProvider theme={mainTheme}>
       <FixedSizeList
-        height={400}
-        width={500}
+        height={450}
+        width={600}
         itemSize={43}
         itemCount={songs.length}
         overscanCount={5}
       >
         {({ index, style }) => (
-            <MusicCell songs={songs} style={style} index ={index} /> )}
-            {/* <div style={style}>
+          <>
+            <MusicCell songs={songs} style={style} index={index} />
+
+          </>
+        )}
+
+        {/* <div style={style}>
             <ListItem
               key={index}
               color="primary"
