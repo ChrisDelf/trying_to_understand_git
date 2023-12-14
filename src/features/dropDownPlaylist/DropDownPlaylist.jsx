@@ -12,7 +12,8 @@ import FileCopyIcon from "@mui/icons-material/FileCopy";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import PopUpMenu from "./PopUpMenu";
-import PopUpPlaylist from "./PopUpPlaylist";
+import PopUpPlaylistMenu from "./PopUpPlaylistMenu";
+import { Portal } from "@mui/material";
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -58,24 +59,6 @@ const StyledMenu = styled((props) => (
 }));
 
 
-const PopUpPlaylistO = styled("div")({
-  position: "fixed",
-  top: 0,
-  left: 0,
-  width: "100%",
-  height: "100%",
-  background: "rgba(0, 0, 0, 0.5)",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  zIndex: 1000,
-});
-
-const PopUpContent = styled("div")({
-  color: "red",
-});
-
-
 const PlaylistDropdown = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorP, setAnchorP] = useState(null);
@@ -90,9 +73,7 @@ const PlaylistDropdown = () => {
   const handlePopUpPlaylist = () => {
     setAnchorEl(null);
     setPlayListM(true);
-    console.log(isPlayListM);
   };
-  
 
   return (
     <div>
@@ -123,12 +104,10 @@ const PlaylistDropdown = () => {
         </MenuItem>
       </StyledMenu>
       {isPlayListM ? (
-          <div>
-        <h> DERRREp </h>
-        <h> GREETINGS </h>
-        </div> )
-    
- :(<div></div>)}
+          <PopUpPlaylistMenu setPlaylistM={setPlayListM} />
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 };
